@@ -109,7 +109,7 @@ def categorization():
     if "user_id" not in session:
         return redirect(url_for("login"))
 
-    expenses = get_expenses()
+    expenses = get_saved_expenses(session["user_id"])
 
     categorized_expenses = categorize_expenses(expenses)
 
@@ -188,5 +188,8 @@ def add_expense_page():
     return render_template("add_expense.html")
 
 
+import os
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
