@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Expense and Budget Tracker</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <h2>EXPENSE AND BUDGET TRACKER</h2>
+
+    <a href="/" class="active">Dashboard</a>
+    <a href="/expense-register">Expense Register</a>
+    <a href="/categorization">Categorization</a>
+    <a href="/budget-analysis">Budget Analysis</a>
+    <a href="/reports">Reports</a>
+
+</div>
+
+<main class="main-content">
+
+    <header>
+        <div>
+            <p class="welcome">WELCOME BACK</p>
+            <h1>Financial Dashboard</h1>
+        </div>
+
+        <img src="{{ url_for('static', filename='images/company_logo.png') }}"
+     alt="DefineInfoTech Logo">
+    </header>
+
+    <section class="overview">
+
+        <div class="card">
+            <p>Total Expenses</p>
+            <h2>₹{{ "%.2f"|format(summary.total_expense) }}</h2>
+            <span>Monthly spending</span>
+        </div>
+
+        <div class="card">
+            <p>Total Budget</p>
+            <h2>₹{{ "%.2f"|format(summary.total_budget) }}</h2>
+            <span>Monthly budget</span>
+        </div>
+
+        <div class="card">
+            <p>Remaining Budget</p>
+            <h2>₹{{ "%.2f"|format(summary.remaining_balance) }}</h2>
+            <span>Available balance</span>
+        </div>
+
+        <div class="card">
+            <p>Categories</p>
+            <h2>{{ summary.category_totals|length }}</h2>
+            <span>Expense groups</span>
+        </div>
+
+    </section>
+
+    <section class="content-card">
+        <h2>Welcome to Expense and Budget Tracker</h2>
+        <p>
+            Manage your expenses, organize categories,
+            monitor your budget and understand your spending.
+        </p>
+    </section>
+
+</main>
+
+</body>
+</html>

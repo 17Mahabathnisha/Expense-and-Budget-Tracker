@@ -1,0 +1,9 @@
+Date,Description,Amount,Category,Payment_mode
+2026-11-01,Groceries,500,Food,UPI
+2026-11-03,Bus Travel,100,Transport,Cash
+2026-11-05,College Fees,1500,Education,UPI
+2026-11-08,Mobile Recharge,299,Utilities,UPI
+2026-11-10,Stationery,250,Education,Cash
+2026-11-12,Restaurant,450,Food,Card
+2026-11-15,Electricity Bill,800,Utilities,UPI
+2026-11-18,Shopping,600,Shopping,Card

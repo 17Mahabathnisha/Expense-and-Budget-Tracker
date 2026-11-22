@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Expense Tracker</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="sidebar">
+
+        <h2>EXPENSE<span>TRACKER</span></h2>
+
+        <a href="/">Dashboard</a>
+        <a href="/expense-register">Expense Register</a>
+        <a href="/categorization">Categorization</a>
+        <a href="/budget-analysis">Budget Analysis</a>
+        <a href="/reports" class="active">Reports</a>
+
+    </div>
+
+    <div class="main-content">
+
+        <h1>Expense Reports</h1>
+        <p>View your expense summaries and financial reports.</p>
+
+        <div class="card">
+    <h3>Expense Report Summary</h3>
+
+    <div class="summary-grid">
+        <div class="card">
+            <h4>Total Expense</h4>
+            <h2>₹{{ "%.2f"|format(report_data.total_expense) }}</h2>
+        </div>
+
+        <div class="card">
+            <h4>Total Transactions</h4>
+            <h2>{{ report_data.transaction_count }}</h2>
+        </div>
+
+        <div class="card">
+            <h4>Total Categories</h4>
+            <h2>{{ report_data.category_count }}</h2>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Category-wise Report</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Total Expense</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category, amount in report_data.category_summary.items() %}
+            <tr>
+                <td>{{ category }}</td>
+                <td>₹{{ "%.2f"|format(amount) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h3>Payment Mode Report</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Payment Mode</th>
+                <th>Total Expense</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mode, amount in report_data.payment_summary.items() %}
+            <tr>
+                <td>{{ mode }}</td>
+                <td>₹{{ "%.2f"|format(amount) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+    </div>
+
+</body>
+</html>
