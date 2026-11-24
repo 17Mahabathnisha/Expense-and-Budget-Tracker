@@ -1,77 +1,438 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Expense - Expense Tracker</title>
+
+    <title>Add Expense - Expense and Budget Tracker</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        /* SIDEBAR BRAND */
+
+        .sidebar .project-brand {
+            margin-bottom: 30px;
+        }
+
+        .sidebar .brand-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .brand-top img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .sidebar .brand-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .sidebar .brand-text h2 {
+            font-size: 15px;
+            line-height: 1.5;
+            margin: 0;
+            color: #ffffff;
+            overflow-wrap: anywhere;
+        }
+
+        .sidebar .brand-text p {
+            font-size: 9px;
+            color: #a78bfa;
+            letter-spacing: 1px;
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+
+        /* PROJECT DETAILS - FOUR SEPARATE BOXES */
+
+        .project-info-bar {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 30px;
+        }
+
+        .project-info-item {
+            background: #202344;
+            border: 1px solid #30345a;
+            border-radius: 12px;
+            padding: 18px 8px;
+            text-align: center;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            min-width: 0;
+            box-sizing: border-box;
+            overflow-wrap: anywhere;
+        }
+
+        .project-info-item h4 {
+            font-size: 12px;
+            color: #a78bfa;
+            margin: 0 0 8px 0;
+            line-height: 1.5;
+        }
+
+        .project-info-item p {
+            font-size: 13px;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 0;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+
+        /* PAGE HEADING */
+
+        .page-heading {
+            margin-bottom: 30px;
+        }
+
+        .page-heading .welcome {
+            color: #a78bfa;
+            font-size: 12px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .page-heading h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .page-heading p {
+            color: #a5a8c5;
+            line-height: 1.6;
+        }
+
+
+        /* EXPENSE FORM */
+
+        .expense-form label {
+            display: block;
+            margin: 18px 0 8px;
+            color: #d5c5ff;
+            font-weight: 600;
+        }
+
+        .expense-form input,
+        .expense-form select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #494070;
+            border-radius: 9px;
+            background: #171a35;
+            color: white;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .expense-form button {
+            margin-top: 25px;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 9px;
+            background: linear-gradient(90deg, #7046d5, #9b70ed);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .category-guide {
+            margin-top: 20px;
+            padding: 18px;
+            background: #29234f;
+            border: 1px solid #494070;
+            border-radius: 12px;
+            line-height: 2;
+            color: #c1bfd8;
+        }
+
+        .category-guide h4 {
+            color: #d5c5ff;
+            margin-bottom: 8px;
+        }
+
+
+        /* MOBILE RESPONSIVE */
+
+        @media (max-width: 650px) {
+
+            .sidebar .brand-top img {
+                width: 52px;
+                height: 52px;
+            }
+
+            .sidebar .brand-text h2 {
+                font-size: 14px;
+            }
+
+            .project-info-bar {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 5px;
+                margin-bottom: 22px;
+            }
+
+            .project-info-item {
+                padding: 12px 4px;
+                border-radius: 8px;
+            }
+
+            .project-info-item h4 {
+                font-size: 9px;
+                margin-bottom: 5px;
+            }
+
+            .project-info-item p {
+                font-size: 9px;
+                line-height: 1.4;
+            }
+
+            .page-heading h1 {
+                font-size: 23px;
+            }
+
+            .category-guide {
+                padding: 12px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 380px) {
+
+            .project-info-bar {
+                gap: 3px;
+            }
+
+            .project-info-item {
+                padding: 10px 2px;
+            }
+
+            .project-info-item h4 {
+                font-size: 8px;
+            }
+
+            .project-info-item p {
+                font-size: 8px;
+            }
+        }
+
+    </style>
+
 </head>
 
 <body>
 
+    <!-- SIDEBAR -->
+
     <div class="sidebar">
-        <h2>EXPENSE<span>TRACKER</span></h2>
+
+        <div class="project-brand">
+
+            <div class="brand-top">
+
+                <img src="{{ url_for('static', filename='images/company_logo.png') }}"
+                     alt="Define InfoTech Logo">
+
+                <div class="brand-text">
+
+                    <h2>EXPENSE AND BUDGET TRACKER</h2>
+
+                    <p>SMART FINANCIAL MANAGEMENT</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
 
         <a href="/">Dashboard</a>
+
         <a href="/expense-register">Expense Register</a>
+
         <a href="/categorization">Categorization</a>
+
         <a href="/budget-analysis">Budget Analysis</a>
+
         <a href="/reports">Reports</a>
+
         <a href="/add-expense" class="active">Add Expense</a>
+
     </div>
 
-    <div class="main-content">
 
-        <h1>Add New Expense</h1>
-        <p>Enter your monthly expense details below.</p>
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+
+        <!-- PROJECT DETAILS -->
+
+        <div class="project-info-bar">
+
+            <div class="project-info-item">
+
+                <h4>Project ID</h4>
+
+                <p>DIT-P12</p>
+
+            </div>
+
+            <div class="project-info-item">
+
+                <h4>Team ID</h4>
+
+                <p>T12</p>
+
+            </div>
+
+            <div class="project-info-item">
+
+                <h4>Company</h4>
+
+                <p>Define Infotech Pvt. Ltd. (DIT)</p>
+
+            </div>
+
+            <div class="project-info-item">
+
+                <h4>College</h4>
+
+                <p>Kalaignar Karunanidhi Government Arts College for Women (A)</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAGE HEADING -->
+
+        <header class="page-heading">
+
+            <div>
+
+                <p class="welcome">SMART FINANCIAL MANAGEMENT</p>
+
+                <h1>Add New Expense</h1>
+
+                <p>Enter your monthly expense details below.</p>
+
+            </div>
+
+        </header>
+
+
+        <!-- ADD EXPENSE FORM -->
 
         <div class="card">
 
-            <form method="POST">
+            <form method="POST" class="expense-form">
 
                 <label>Date</label>
+
                 <input type="date" name="date" required>
 
+
                 <label>Description</label>
-                <input type="text" name="description"
-                       placeholder="Enter expense description" required>
+
+                <input type="text"
+                       name="description"
+                       placeholder="Enter expense description"
+                       required>
+
 
                 <label>Amount (₹)</label>
-                <input type="number" name="amount"
-                       step="0.01" min="0.01" required>
+
+                <input type="number"
+                       name="amount"
+                       step="0.01"
+                       min="0.01"
+                       required>
+
 
                 <label>Category</label>
+
                 <select name="category" required>
+
                     <option value="">Select Category</option>
+
                     <option>Food</option>
+
                     <option>Travel</option>
+
                     <option>Education</option>
+
                     <option>Utilities</option>
+
                     <option>Shopping</option>
+
                     <option>Medical</option>
+
                     <option>Entertainment</option>
+
                     <option>Others</option>
+
                 </select>
+
+
+                <!-- CATEGORY GUIDE -->
+
                 <div class="category-guide">
-    <h4>💡 Category Guide</h4>
-    <p>🍔 Food – Snacks, breakfast, lunch, dinner</p>
-    <p>🚌 Travel – Bus, train, auto, petrol</p>
-    <p>📚 Education – Books, notebooks, college fees</p>
-    <p>💡 Utilities – Electricity, water, internet</p>
-    <p>🛍️ Shopping – Clothes, accessories</p>
-    <p>💊 Medical – Tablets, medicines, doctor fees</p>
-    <p>🎬 Entertainment – Movies, games, outings</p>
-    <p>📌 Others – Expenses not listed above</p>
-</div>
+
+                    <h4>💡 Category Guide</h4>
+
+                    <p>🍔 Food – Snacks, breakfast, lunch, dinner</p>
+
+                    <p>🚌 Travel – Bus, train, auto, petrol</p>
+
+                    <p>📚 Education – Books, notebooks, college fees</p>
+
+                    <p>💡 Utilities – Electricity, water, internet</p>
+
+                    <p>🛍️ Shopping – Clothes, accessories</p>
+
+                    <p>💊 Medical – Tablets, medicines, doctor fees</p>
+
+                    <p>🎬 Entertainment – Movies, games, outings</p>
+
+                    <p>📌 Others – Expenses not listed above</p>
+
+                </div>
+
 
                 <label>Payment Mode</label>
+
                 <select name="payment_mode" required>
+
                     <option value="">Select Payment Mode</option>
+
                     <option>Cash</option>
+
                     <option>UPI</option>
+
                     <option>Card</option>
+
                 </select>
+
 
                 <button type="submit">Save Expense</button>
 
@@ -79,7 +440,8 @@
 
         </div>
 
-    </div>
+    </main>
 
 </body>
+
 </html>

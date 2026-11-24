@@ -4,72 +4,264 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Expense and Budget Tracker</title>
+    <title>Expense and Budget Tracker | Smart Financial Management</title>
 
     <link rel="stylesheet"
     href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        /* BRAND SECTION */
+        .project-brand {
+            margin-bottom: 30px;
+        }
+
+        .brand-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-top img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .brand-text h2 {
+            font-size: 15px;
+            line-height: 1.5;
+            margin: 0;
+            color: white;
+        }
+
+        .brand-text p {
+            font-size: 9px;
+            color: #a78bfa;
+            letter-spacing: 1px;
+            margin-top: 6px;
+        }
+
+        /* DASHBOARD HEADER */
+        .dashboard-welcome {
+            margin-bottom: 25px;
+        }
+
+        .dashboard-welcome h1 {
+            font-size: 30px;
+            color: white;
+        }
+
+        /* HORIZONTAL PROJECT DETAILS */
+        .project-info-bar {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            width: 100%;
+            margin-bottom: 28px;
+        }
+
+        .project-info-item {
+            background: #171a35;
+            border: 1px solid #7046d5;
+            border-radius: 9px;
+            padding: 13px 10px;
+            text-align: center;
+            min-width: 0;
+        }
+
+        .project-info-item span {
+            display: block;
+            color: #a78bfa;
+            font-size: 10px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .project-info-item strong {
+            display: block;
+            color: white;
+            font-size: 12px;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .project-info-bar {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 650px) {
+            .dashboard-welcome h1 {
+                font-size: 23px;
+            }
+
+            .project-info-bar {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+
+            .project-info-item {
+                padding: 11px 7px;
+            }
+
+            .project-info-item strong {
+                font-size: 11px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
+<!-- SIDEBAR -->
+
 <div class="sidebar">
 
-    <h2>EXPENSE AND BUDGET TRACKER</h2>
+    <div class="project-brand">
+
+        <div class="brand-top">
+
+            <img src="{{ url_for('static', filename='images/company_logo.png') }}"
+                 alt="Define InfoTech Logo">
+
+            <div class="brand-text">
+
+                <h2>EXPENSE AND BUDGET TRACKER</h2>
+
+                <p>SMART FINANCIAL MANAGEMENT</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- NAVIGATION -->
 
     <a href="/" class="active">Dashboard</a>
+
     <a href="/expense-register">Expense Register</a>
+
     <a href="/categorization">Categorization</a>
+
     <a href="/budget-analysis">Budget Analysis</a>
+
     <a href="/reports">Reports</a>
 
 </div>
 
+
+<!-- MAIN DASHBOARD -->
+
 <main class="main-content">
 
-    <header>
+    <!-- HEADER -->
+
+    <header class="dashboard-welcome">
+
         <div>
+
             <p class="welcome">WELCOME BACK</p>
+
             <h1>Financial Dashboard</h1>
+
         </div>
 
-        <img src="{{ url_for('static', filename='images/company_logo.png') }}"
-     alt="DefineInfoTech Logo">
     </header>
 
-    <section class="overview">
 
-        <div class="card">
-            <p>Total Expenses</p>
-            <h2>₹{{ "%.2f"|format(summary.total_expense) }}</h2>
-            <span>Monthly spending</span>
+    <!-- PROJECT DETAILS - HORIZONTAL ROW -->
+
+    <section class="project-info-bar">
+
+        <div class="project-info-item">
+            <span>PROJECT ID</span>
+            <strong>DIT-P12</strong>
         </div>
 
-        <div class="card">
-            <p>Total Budget</p>
-            <h2>₹{{ "%.2f"|format(summary.total_budget) }}</h2>
-            <span>Monthly budget</span>
+        <div class="project-info-item">
+            <span>TEAM ID</span>
+            <strong>T12</strong>
         </div>
 
-        <div class="card">
-            <p>Remaining Budget</p>
-            <h2>₹{{ "%.2f"|format(summary.remaining_balance) }}</h2>
-            <span>Available balance</span>
+        <div class="project-info-item">
+            <span>COMPANY</span>
+            <strong>DefineInfoTech Pvt.Ltd. (DIT)</strong>
         </div>
 
-        <div class="card">
-            <p>Categories</p>
-            <h2>{{ summary.category_totals|length }}</h2>
-            <span>Expense groups</span>
+        <div class="project-info-item">
+            <span>COLLEGE</span>
+            <strong>Kalaignar Karunanidhi Government Arts College for Women (A)</strong>
         </div>
 
     </section>
 
+
+    <!-- SUMMARY CARDS -->
+
+    <section class="overview">
+
+        <div class="card">
+
+            <p>Total Expenses</p>
+
+            <h2>₹{{ "%.2f"|format(summary.total_expense) }}</h2>
+
+            <span>Monthly spending</span>
+
+        </div>
+
+
+        <div class="card">
+
+            <p>Total Budget</p>
+
+            <h2>₹{{ "%.2f"|format(summary.total_budget) }}</h2>
+
+            <span>Monthly budget</span>
+
+        </div>
+
+
+        <div class="card">
+
+            <p>Remaining Budget</p>
+
+            <h2>₹{{ "%.2f"|format(summary.remaining_balance) }}</h2>
+
+            <span>Available balance</span>
+
+        </div>
+
+
+        <div class="card">
+
+            <p>Categories</p>
+
+            <h2>{{ summary.category_totals|length }}</h2>
+
+            <span>Expense groups</span>
+
+        </div>
+
+    </section>
+
+
+    <!-- WELCOME CONTENT -->
+
     <section class="content-card">
+
         <h2>Welcome to Expense and Budget Tracker</h2>
+
         <p>
+            Smart Financial Management for better spending decisions.
             Manage your expenses, organize categories,
-            monitor your budget and understand your spending.
+            monitor your budget and understand your spending
+            through detailed reports and analysis.
         </p>
+
     </section>
 
 </main>

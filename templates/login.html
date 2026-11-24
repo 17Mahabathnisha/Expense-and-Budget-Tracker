@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
         }
 
         body {
@@ -25,7 +25,7 @@
 
         .login-container {
             width: 100%;
-            max-width: 420px;
+            max-width: 450px;
             padding: 40px 35px;
             border-radius: 20px;
             background: rgba(255, 255, 255, 0.10);
@@ -35,18 +35,28 @@
             color: white;
         }
 
+        .company-logo {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 15px;
+        }
+
         .logo {
             text-align: center;
-            font-size: 25px;
+            font-size: 22px;
             font-weight: bold;
             color: white;
-            margin-bottom: 12px;
+            line-height: 1.5;
+            margin-bottom: 8px;
         }
 
         .subtitle {
             text-align: center;
             color: #c6d6ff;
-            font-size: 13px;
+            font-size: 12px;
+            letter-spacing: 2px;
             margin-bottom: 30px;
         }
 
@@ -129,6 +139,10 @@
 <body>
 
     <div class="login-container">
+
+        <img src="{{ url_for('static', filename='images/company_logo.png') }}"
+             alt="Company Logo"
+             class="company-logo">
 
         <div class="logo">EXPENSE AND BUDGET TRACKER</div>
 

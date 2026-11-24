@@ -14,10 +14,11 @@ body {
 /* SIDEBAR */
 
 .sidebar {
-    width: 250px;
+    width: 310px;
+    min-width: 310px;
     min-height: 100vh;
     background: #171a35;
-    padding: 35px 20px;
+    padding: 35px 16px;
     border-right: 1px solid #292d50;
 }
 
@@ -208,4 +209,30 @@ tbody tr:nth-child(even) {
 
 tbody tr:hover {
     background: #38305f;
+}
+/* Horizontal Project Details */
+
+.project-details {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(150px, 1fr));
+    gap: 10px;
+    width: 100%;
+    margin: 0 0 25px;
+}
+
+.project-details p {
+    background: #1b1e3a;
+    border: 1px solid #494070;
+    border-radius: 8px;
+    padding: 12px 8px;
+    color: #ffffff;
+    font-size: 12px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+    .project-details {
+        grid-template-columns: repeat(2, minmax(150px, 1fr));
+    }
 }

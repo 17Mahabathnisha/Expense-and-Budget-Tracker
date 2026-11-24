@@ -111,6 +111,12 @@ def categorization():
 
     expenses = get_saved_expenses(session["user_id"])
 
+    if not expenses:
+        return render_template(
+            "categorization.html",
+            categorized_expenses=[]
+        )
+
     categorized_expenses = categorize_expenses(expenses)
 
     output_file = OUTPUT_DIR / "categorized_expenses.csv"
@@ -129,6 +135,12 @@ def budget_analysis():
         return redirect(url_for("login"))
 
     expenses = get_expenses()
+
+    if not expenses:
+        return render_template(
+            "budget_analysis.html",
+            budget_records=[]
+        )
 
     budget_report = analyze_budget(expenses)
 

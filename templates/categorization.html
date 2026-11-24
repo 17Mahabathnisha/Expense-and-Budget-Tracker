@@ -1,63 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Categorization - Expense Tracker</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Expense Categorization | Expense and Budget Tracker</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        /* SIDEBAR BRAND */
+
+        .sidebar .project-brand {
+            margin-bottom: 30px;
+        }
+
+        .sidebar .brand-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .brand-top img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .sidebar .brand-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .sidebar .brand-text h2 {
+            font-size: 15px;
+            line-height: 1.5;
+            margin: 0;
+            color: #ffffff;
+            overflow-wrap: anywhere;
+        }
+
+        .sidebar .brand-text p {
+            font-size: 9px;
+            color: #a78bfa;
+            letter-spacing: 1px;
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+
+        /* PROJECT DETAILS - FOUR HORIZONTAL BOXES */
+
+        .project-info-bar {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 30px;
+        }
+
+        .project-info-item {
+            background: #202344;
+            border: 1px solid #30345a;
+            border-radius: 12px;
+            padding: 18px 8px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-width: 0;
+            box-sizing: border-box;
+            overflow-wrap: anywhere;
+        }
+
+        .project-info-item h4 {
+            color: #a78bfa;
+            font-size: 11px;
+            letter-spacing: 1px;
+            margin: 0 0 10px 0;
+        }
+
+        .project-info-item p {
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.6;
+            margin: 0;
+            overflow-wrap: anywhere;
+        }
+
+
+        /* PAGE HEADING */
+
+        .page-heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-heading h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .page-heading p {
+            color: #a5a8c5;
+            line-height: 1.6;
+        }
+
+
+        /* RESPONSIVE DESIGN - KEEP FOUR BOXES IN ONE ROW */
+
+        @media (max-width: 650px) {
+
+            .sidebar .brand-top img {
+                width: 52px;
+                height: 52px;
+            }
+
+            .sidebar .brand-text h2 {
+                font-size: 14px;
+            }
+
+            .project-info-bar {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 5px;
+            }
+
+            .project-info-item {
+                padding: 12px 3px;
+                border-radius: 8px;
+            }
+
+            .project-info-item h4 {
+                font-size: 8px;
+                letter-spacing: 0;
+                margin-bottom: 6px;
+            }
+
+            .project-info-item p {
+                font-size: 9px;
+                line-height: 1.4;
+            }
+
+            .page-heading h1 {
+                font-size: 23px;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 <body>
 
+    <!-- SIDEBAR -->
+
     <div class="sidebar">
 
-        <h2>EXPENSE<span>TRACKER</span></h2>
+        <div class="project-brand">
+
+            <!-- LOGO AND PROJECT TITLE -->
+
+            <div class="brand-top">
+
+                <img src="{{ url_for('static', filename='images/company_logo.png') }}"
+                     alt="Define InfoTech Logo">
+
+                <div class="brand-text">
+
+                    <h2>EXPENSE AND BUDGET TRACKER</h2>
+
+                    <p>SMART FINANCIAL MANAGEMENT</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
 
         <a href="/">Dashboard</a>
+
         <a href="/expense-register">Expense Register</a>
+
         <a href="/categorization" class="active">Categorization</a>
+
         <a href="/budget-analysis">Budget Analysis</a>
+
         <a href="/reports">Reports</a>
 
     </div>
 
-    <div class="main-content">
 
-        <h1>Expense Categorization</h1>
+    <!-- MAIN CONTENT -->
 
-        <p>View and organize your expenses by category.</p>
+    <main class="main-content">
 
-        .
-<div class="card">
-    <h3>Automatically Categorized Expenses</h3>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Amount</th>
-                <th>Category</th>
-                <th>Payment Mode</th>
-            </tr>
-        </thead>
+        <!-- PROJECT DETAILS - FOUR SEPARATE BOXES -->
 
-        <tbody>
-            {% for expense in categorized_expenses %}
-            <tr>
-                <td>{{ expense.Date }}</td>
-                <td>{{ expense.Description }}</td>
-                <td>₹{{ expense.Amount }}</td>
-                <td>{{ expense.Category }}</td>
-                <td>{{ expense.Payment_mode }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+        <div class="project-info-bar">
 
-    </div>
+            <div class="project-info-item">
+
+                <h4>PROJECT ID</h4>
+
+                <p>DIT-P12</p>
+
+            </div>
+
+
+            <div class="project-info-item">
+
+                <h4>TEAM ID</h4>
+
+                <p>T12</p>
+
+            </div>
+
+
+            <div class="project-info-item">
+
+                <h4>COMPANY</h4>
+
+                <p>Define Infotech Pvt. Ltd. (DIT)</p>
+
+            </div>
+
+
+            <div class="project-info-item">
+
+                <h4>COLLEGE</h4>
+
+                <p>
+                    Kalaignar Karunanidhi Government Arts College for Women (A)
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAGE HEADING -->
+
+        <div class="page-heading">
+
+            <h1>Expense Categorization</h1>
+
+            <p>View and organize your expenses by category.</p>
+
+        </div>
+
+
+        <!-- CATEGORIZED EXPENSE RECORDS -->
+
+        <div class="card">
+
+            <h3>Automatically Categorized Expenses</h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Category</th>
+                        <th>Payment Mode</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for expense in categorized_expenses %}
+
+                    <tr>
+
+                        <td>{{ expense.Date }}</td>
+
+                        <td>{{ expense.Description }}</td>
+
+                        <td>₹{{ expense.Amount }}</td>
+
+                        <td>{{ expense.Category }}</td>
+
+                        <td>{{ expense.Payment_mode }}</td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </main>
 
 </body>
+
 </html>

@@ -2,3 +2,5 @@ Flask
 pandas
 Werkzeug
 gunicorn
+psycopg[binary]
+python-dotenv

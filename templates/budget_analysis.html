@@ -1,61 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Budget Analysis - Expense Tracker</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Budget Analysis | Expense and Budget Tracker</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .sidebar .project-brand {
+            margin-bottom: 30px;
+        }
+
+        .sidebar .brand-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .brand-top img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .sidebar .brand-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .sidebar .brand-text h2 {
+            font-size: 15px;
+            line-height: 1.5;
+            margin: 0;
+            color: #ffffff;
+            overflow-wrap: anywhere;
+        }
+
+        .sidebar .brand-text p {
+            font-size: 9px;
+            color: #a78bfa;
+            letter-spacing: 1px;
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+        /* PROJECT DETAILS - FOUR SEPARATE BOXES */
+
+        .project-info-bar {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 30px;
+        }
+
+        .project-info-item {
+            background: #202344;
+            border: 1px solid #30345a;
+            border-radius: 12px;
+            padding: 18px 8px;
+            text-align: center;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            min-width: 0;
+            box-sizing: border-box;
+            overflow-wrap: anywhere;
+        }
+
+        .project-info-item h4 {
+            font-size: 12px;
+            color: #a78bfa;
+            margin: 0 0 8px 0;
+            line-height: 1.5;
+        }
+
+        .project-info-item p {
+            font-size: 13px;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 0;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        /* PAGE HEADING */
+
+        .page-heading {
+            margin-bottom: 30px;
+        }
+
+        .page-heading h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .page-heading p {
+            color: #a5a8c5;
+            line-height: 1.6;
+        }
+
+        /* MOBILE RESPONSIVE */
+
+        @media (max-width: 650px) {
+
+            .sidebar .brand-top img {
+                width: 52px;
+                height: 52px;
+            }
+
+            .sidebar .brand-text h2 {
+                font-size: 14px;
+            }
+
+            .project-info-bar {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 5px;
+                margin-bottom: 22px;
+            }
+
+            .project-info-item {
+                padding: 12px 4px;
+                border-radius: 8px;
+            }
+
+            .project-info-item h4 {
+                font-size: 9px;
+                margin-bottom: 5px;
+            }
+
+            .project-info-item p {
+                font-size: 9px;
+                line-height: 1.4;
+            }
+
+            .page-heading h1 {
+                font-size: 23px;
+            }
+        }
+
+        @media (max-width: 380px) {
+
+            .project-info-bar {
+                gap: 3px;
+            }
+
+            .project-info-item {
+                padding: 10px 2px;
+            }
+
+            .project-info-item h4 {
+                font-size: 8px;
+            }
+
+            .project-info-item p {
+                font-size: 8px;
+            }
+        }
+    </style>
+
 </head>
 
 <body>
 
+    <!-- SIDEBAR -->
+
     <div class="sidebar">
 
-        <h2>EXPENSE<span>TRACKER</span></h2>
+        <div class="project-brand">
+
+            <div class="brand-top">
+
+                <img src="{{ url_for('static', filename='images/company_logo.png') }}"
+                     alt="Define InfoTech Logo">
+
+                <div class="brand-text">
+
+                    <h2>EXPENSE AND BUDGET TRACKER</h2>
+
+                    <p>SMART FINANCIAL MANAGEMENT</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- NAVIGATION -->
 
         <a href="/">Dashboard</a>
+
         <a href="/expense-register">Expense Register</a>
+
         <a href="/categorization">Categorization</a>
+
         <a href="/budget-analysis" class="active">Budget Analysis</a>
+
         <a href="/reports">Reports</a>
 
     </div>
 
-    <div class="main-content">
 
-        <h1>Budget Analysis</h1>
-        <p>Track your budget and monitor your spending.</p>
+    <!-- MAIN CONTENT -->
 
-       <div class="card">
-    <h3>Category-wise Budget Analysis</h3>
+    <main class="main-content">
 
-    <table>
-        <thead>
-            <tr>
-                <th>Category</th>
-                <th>Budget</th>
-                <th>Actual Expense</th>
-                <th>Remaining</th>
-                <th>Status</th>
-            </tr>
-        </thead>
+        <!-- PROJECT DETAILS -->
 
-        <tbody>
-            {% for item in budget_records %}
-            <tr>
-                <td>{{ item["Category"] }}</td>
-                <td>₹{{ "%.2f"|format(item["Budget"]) }}</td>
-                <td>₹{{ "%.2f"|format(item["Actual Expense"]) }}</td>
-                <td>₹{{ "%.2f"|format(item["Remaining"]) }}</td>
-                <td>{{ item["Status"] }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+        <div class="project-info-bar">
 
-    </div>
+            <div class="project-info-item">
+
+                <h4>Project ID</h4>
+
+                <p>DIT-P12</p>
+
+            </div>
+
+            <div class="project-info-item">
+
+                <h4>Team ID</h4>
+
+                <p>T12</p>
+
+            </div>
+
+            <div class="project-info-item">
+
+                <h4>Company</h4>
+
+                <p>Define Infotech Pvt. Ltd. (DIT)</p>
+
+            </div>
+
+            <div class="project-info-item">
+
+                <h4>College</h4>
+
+                <p>Kalaignar Karunanidhi Government Arts College for Women (A)</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAGE HEADING -->
+
+        <div class="page-heading">
+
+            <h1>Budget Analysis</h1>
+
+            <p>Track your budget and monitor your spending.</p>
+
+        </div>
+
+
+        <!-- CATEGORY-WISE BUDGET ANALYSIS -->
+
+        <div class="card">
+
+            <h3>Category-wise Budget Analysis</h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Category</th>
+                        <th>Budget</th>
+                        <th>Actual Expense</th>
+                        <th>Remaining</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for item in budget_records %}
+
+                    <tr>
+
+                        <td>{{ item["Category"] }}</td>
+
+                        <td>₹{{ "%.2f"|format(item["Budget"]) }}</td>
+
+                        <td>₹{{ "%.2f"|format(item["Actual Expense"]) }}</td>
+
+                        <td>₹{{ "%.2f"|format(item["Remaining"]) }}</td>
+
+                        <td>{{ item["Status"] }}</td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </main>
 
 </body>
+
 </html>
